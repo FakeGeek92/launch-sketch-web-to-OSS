@@ -16,6 +16,7 @@ from config import html_oss_bucket_folder
 from config import imgs_oss_bucket_folder
 from config import temp_imgs_local_folder
 from config import temp_html_local_folder
+from config import title
 
 from handle_html import from_url_get_html
 from handle_html import delete_useless_code
@@ -49,7 +50,7 @@ def delete_temp_folder():
 
 
 class PublishWeb:
-    # get html source code and delete redundant code
+
     def __init__(self):
         self.bucket = create_bucket_object(ACCESS_KEY_ID, ACCESS_KEY_SECRET, OSS_BUCKET_NAME, OSS_ENDPOINT)
         self.web_url = web_url
@@ -58,10 +59,12 @@ class PublishWeb:
         self.oss_file_prefix_url = 'https://' + OSS_BUCKET_NAME + '.' + OSS_ENDPOINT + '/'
         self.imgs_oss_bucket_folder = imgs_oss_bucket_folder
         self.html_oss_bucket_folder = html_oss_bucket_folder
+        self.title = title
 
+    # get html source code and delete redundant code
     def generate_html_file(self):
         html = from_url_get_html(self.web_url)
-        html = delete_useless_code(html)
+        html = delete_useless_code(html, title)
 
         # TinyPNG config
         tinify.key = TINIFY_KEY
@@ -82,8 +85,12 @@ class PublishWeb:
             # upload img to oss
             upload_file_to_oss(img_name, self.imgs_oss_bucket_folder, self.bucket)
 
+            # replace url prefix
+            img_oss_prefix_url = self.oss_file_prefix_url + '/' + self.imgs_oss_bucket_folder + '/'
+            new_url = replace_img_url_prefix(url, img_oss_prefix_url)
+            html = html.replace(url, new_url)
+
         # save html file
-        html = replace_img_url_prefix(html, self.oss_file_prefix_url + self.imgs_oss_bucket_folder)
         create_and_enter_new_folder(temp_html_local_folder)
         save_html_file(self.web_file_name, html)
         print('*' * 50)
@@ -120,8 +127,8 @@ class PublishWeb:
         webbrowser.open(final_url, new=2)
 
         # delete temp files
-        delete_temp_folder()
-        print('local temp file deleted!')
+        # delete_temp_folder()
+        # print('local temp file deleted!')
 
 
 if __name__ == '__main__':

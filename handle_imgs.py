@@ -2,6 +2,7 @@ import os
 import re
 import tinify
 
+
 def compress_img(img_url, filename):
     print('Compressing '+filename)
 
@@ -13,9 +14,10 @@ def compress_img(img_url, filename):
     source.to_file(filename)
     print(filename+' Downloaded!')
 
+
 def get_all_img_url(html):
     imgurl = []
-    imgurl = re.findall(r'https:.*?png', html)
+    imgurl = re.findall(r'https://anima.*?png', html)
     # print(imgurl)
     return imgurl
 
