@@ -32,3 +32,9 @@ web_url = ''
 
 # the name fo your html
 web_name = ''
+
+# the web title
+title = '购买'
+
+
+
