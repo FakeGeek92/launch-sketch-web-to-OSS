@@ -23,7 +23,7 @@
 ### 配置 config
 * 复制 `config_example.py` 文件并修改文件名为 `config.py`
 * 打开 `config.py` 文件，将你创建的 OSS Bucket 相关信息填写到配置中
-* 配置 TinPNG api
+* 配置 TinyPNG api
 * 配置 OSS 文件夹，以方便管理你上传的文件和图片等资源
 * 配置你从 Sketch 插件 Launchpad 生成的链接
 * 配置生成的 html 文件的名字
@@ -49,7 +49,7 @@ imgs_oss_bucket_folder = ''
 
 
 # local temp folder
-# After images and htmls has been uploadde, the temp files will be deleted.
+# After images and htmls has been uploaded, the temp files will be deleted.
 temp_imgs_local_folder = 'temp_imgs'
 temp_html_local_folder = 'temp_htmls'
 
