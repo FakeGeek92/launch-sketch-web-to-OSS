@@ -25,6 +25,7 @@ from handle_html import replace_img_url_prefix
 
 from handle_imgs import get_all_img_url
 from handle_imgs import compress_img
+from handle_imgs import download_imgs
 
 from upload_files_to_OSS import create_bucket_object
 from upload_files_to_OSS import upload_file_to_oss
@@ -81,6 +82,9 @@ class PublishWeb:
 
             # compress and save img
             # compress_img(url, img_name)
+
+            # download imgs
+            download_imgs(url, img_name)
 
             # upload img to oss
             upload_file_to_oss(img_name, self.imgs_oss_bucket_folder, self.bucket)
