@@ -80,7 +80,7 @@ class PublishWeb:
             img_name = re.sub(r'.*/', '', url)
 
             # compress and save img
-            compress_img(url, img_name)
+            # compress_img(url, img_name)
 
             # upload img to oss
             upload_file_to_oss(img_name, self.imgs_oss_bucket_folder, self.bucket)
